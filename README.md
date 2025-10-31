@@ -1,5 +1,5 @@
 # AI_Omics_Internship_2025
-Task 1: Scripting in R
+
 # Intro to R for Bioinformatics 🚀
 
 This repository documents my weekly progress in learning **R for bioinformatics programming** as part of the AI Omics Research Internship (2025).  
