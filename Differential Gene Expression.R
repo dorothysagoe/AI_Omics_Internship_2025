@@ -2,7 +2,7 @@
 
 ################################################################
 
-### Pre-processing and Normalization of Microarray Data in R ###
+### Differential Gene Expression Analyses of Microarray Data in R ###
 
 ################################################################
 
@@ -176,12 +176,7 @@ gene_map_df <- gene_symbols %>%
   tibble::rownames_to_column("PROBE_ID") %>%
   dplyr::rename(SYMBOL = 2)
 
-#Address many-to-one
-
-#1. Retain probe with highest variance
-#2. Average or summarize probe signals
-#3. Remove duplicate probes ro maintain one row per gene
-  
+#Address many-to-one by average or summarize probe signals to maintain one row per gene
 
 #Summarize number of probes per gene symbol
 duplicate_summary <- gene_map_df %>%
@@ -220,13 +215,6 @@ expr_only <- processed_data_df %>%
 # -------------------------------------------------------------
 # limma::avereps() computes the average for probes representing the same gene
 averaged_data <- limma::avereps(expr_only, ID = processed_data_df$SYMBOL)
-
-# Example to demonstrate how avereps works
-x <- matrix(rnorm(8*3), 8, 3)
-colnames(x) <- c("S1", "S2", "S3")
-rownames(x) <- c("b", "a", "a", "c", "c", "b", "b", "b")
-head(x)
-avereps(x)  # Collapses duplicated row names by averaging
 
 dim(averaged_data)
 
@@ -297,9 +285,9 @@ write.csv(deg_updown, file = "Results/Updown_DEGs.csv")
 
 
 
-# -------------------------------------------------------------
-#### Data Visualization ####
-# -------------------------------------------------------------
+############################################################################
+###Data Visualization###
+############################################################################
 
 # -------------------------------------------------------------
 # Volcano Plot: visualizes DEGs by logFC and adjusted p-values
@@ -360,5 +348,6 @@ pheatmap(
 )
 
 dev.off()
+
 
 
